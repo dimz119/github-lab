@@ -14,6 +14,10 @@ def hold(event: Event, seat_id: str, user_id: str) -> None:
     seat = event.seats.get(seat_id)
     if seat is None:
         raise SeatNotFound(seat_id)
+
+    if not seat.is_available:
+        raise SeatAlreadyHeld(seat_id)
+
     seat.held_by = user_id
 
 
